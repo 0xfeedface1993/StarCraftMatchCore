@@ -8,10 +8,10 @@
 import StORM
 import SQLiteStORM
 
-typealias ExcuteCompletion = (Bool) -> ()
+public typealias ExcuteCompletion = (Bool) -> ()
 
 /// 赛区
-class Zone: SQLiteStORM {
+public class Zone: SQLiteStORM {
     var id: Int = 0
     /// 赛区名
     var name: String = ""
@@ -22,7 +22,7 @@ class Zone: SQLiteStORM {
         return "zone"
     }
     
-    override func to(_ this: StORMRow) {
+    override public func to(_ this: StORMRow) {
         id = this.data["id"] as? Int ?? 0
         name = this.data["name"] as? String ?? ""
         state = this.data["state"] as? Bool ?? false
@@ -40,7 +40,7 @@ class Zone: SQLiteStORM {
 }
 
 /// 战队
-class Team: SQLiteStORM {
+public class Team: SQLiteStORM {
     var id: Int = 0
     /// 名称
     var name: String = ""
@@ -53,7 +53,7 @@ class Team: SQLiteStORM {
         return "team"
     }
     
-    override func to(_ this: StORMRow) {
+    override public func to(_ this: StORMRow) {
         id = this.data["id"] as? Int ?? 0
         name = this.data["name"] as? String ?? ""
         mananger = this.data["mananger"] as? String ?? ""
@@ -72,7 +72,7 @@ class Team: SQLiteStORM {
 }
 
 /// 赛区-战队关系
-class TeamInZone: SQLiteStORM {
+public class TeamInZone: SQLiteStORM {
     var id: Int = 0
     var teamid: Int = 0
     var zoneid: Int = 0
@@ -83,7 +83,7 @@ class TeamInZone: SQLiteStORM {
         return "team_relate_zone"
     }
     
-    override func to(_ this: StORMRow) {
+    override public func to(_ this: StORMRow) {
         id = this.data["id"] as? Int ?? 0
         teamid = this.data["deviceid"] as? Int ?? 0
         zoneid = this.data["userid"] as? Int ?? 0

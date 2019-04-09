@@ -7,10 +7,10 @@
 
 import PerfectLogger
 
-func log(error: String) {
+public func log(error: String) {
     LogFile.debug(error, logFile: "log.txt")
 }
 
-func log(message: String) {
+public func log(message: String) {
     LogFile.debug(message, logFile: "log.txt")
 }

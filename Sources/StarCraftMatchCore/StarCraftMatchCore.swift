@@ -8,7 +8,7 @@ struct StarCraftMatchCore {
 /// - Parameters:
 ///   - zone: 赛区名称
 ///   - completion: 执行回调，成功返回true
-func save(zone: String, completion: ExcuteCompletion?) {
+public func save(zone: String, completion: ExcuteCompletion?) {
     let data = Zone()
     data.name = zone
     do {
@@ -29,7 +29,7 @@ func save(zone: String, completion: ExcuteCompletion?) {
 /// - Parameters:
 ///   - zone: 赛区ID
 ///   - completion: 执行回调，成功返回true
-func remove(zoneID: Int, completion: ExcuteCompletion?) {
+public func remove(zoneID: Int, completion: ExcuteCompletion?) {
     let data = Zone()
     do {
         try data.find([("id", zoneID)])
@@ -48,7 +48,7 @@ func remove(zoneID: Int, completion: ExcuteCompletion?) {
 /// - Parameters:
 ///   - zone: 赛区名称
 ///   - completion: 执行回调，成功返回true
-func remove(zoneName: String, completion: ExcuteCompletion?) {
+public func remove(zoneName: String, completion: ExcuteCompletion?) {
     let data = Zone()
     do {
         try data.find([("name", zoneName), ("state", true)])
@@ -68,7 +68,7 @@ func remove(zoneName: String, completion: ExcuteCompletion?) {
 ///   - zone: 赛区id
 ///   - name: 新赛区名
 ///   - completion: 执行回调，成功返回true
-func update(zone: Int, name: String, completion: ExcuteCompletion?) {
+public func update(zone: Int, name: String, completion: ExcuteCompletion?) {
     let data = Zone()
     do {
         try data.find([("id", zone), ("state", true)])
@@ -84,7 +84,7 @@ func update(zone: Int, name: String, completion: ExcuteCompletion?) {
 }
 
 /// 删除所有赛区数据
-func deleteAllZoneRecords() {
+public func deleteAllZoneRecords() {
     let data = Zone()
     deleteAll(record: data)
     //    do {
@@ -103,7 +103,7 @@ func deleteAllZoneRecords() {
 }
 
 /// 删除所有战队数据
-func deleteAllTeamRecords() {
+public func deleteAllTeamRecords() {
     let data = Team()
     deleteAll(record: data)
     //    do {
@@ -122,7 +122,7 @@ func deleteAllTeamRecords() {
 }
 
 /// 删除所有战队-赛区数据
-func deleteAllTeamZoneRecords() {
+public func deleteAllTeamZoneRecords() {
     let data = TeamInZone()
     deleteAll(record: data)
 }

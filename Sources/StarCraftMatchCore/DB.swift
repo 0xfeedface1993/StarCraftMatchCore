@@ -9,7 +9,7 @@ import StORM
 import SQLiteStORM
 
 /// 初始化数据库
-func configDatabase() {
+public func configDatabase() {
     let team = Team()
     let zone = Zone()
     let teamInZone = TeamInZone()
