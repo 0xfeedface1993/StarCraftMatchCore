@@ -61,9 +61,9 @@ public func save(zones: [String], completion: ExcuteCompletion?) {
 public func remove(zoneID: Int, completion: ExcuteCompletion?) {
     let data = Zone()
     do {
-        try data.find([("id", zoneID)])
-        try data.update(data: [("state", false)], idValue: zoneID)
-        log(message: "------ delete zone: \(data.name)")
+        try data.update(data: [("activeState", 0)], idValue: zoneID)
+        try data.get(zoneID)
+        log(message: "------ delete zone: \(data.name), state: \(data.activeState)")
         completion?(true)
     } catch {
         print(error)
@@ -80,10 +80,19 @@ public func remove(zoneID: Int, completion: ExcuteCompletion?) {
 public func remove(zoneName: String, completion: ExcuteCompletion?) {
     let data = Zone()
     do {
-        try data.find([("name", zoneName), ("state", true)])
-        try data.update(data: [("state", false)], idValue: data.id)
-        log(message: "------ delete zone: \(data.name)")
-        completion?(true)
+        try data.find([("name", zoneName), ("activeState", "1")])
+        if data.id != 0 {
+            let rows = data.rows()
+            for row in rows {
+                let oldValue = row.name
+                row.activeState = 0
+                try row.save()
+                log(message: "------ delete zone: \(oldValue)")
+            }
+            completion?(true)
+        }   else    {
+            completion?(false)
+        }
     } catch {
         print(error)
         log(error: error.localizedDescription)

@@ -33,11 +33,20 @@ final class StarCraftMatchCoreTests: XCTestCase {
         let z = Zone()
         try? z.findAll()
         
-        update(zone: z.rows()[0].id, name: "大风州") { (isSuccess) in
+        let rows = z.rows()
+        // 更新数据
+        update(zone: rows[0].id, name: "大风州") { (isSuccess) in
             XCTAssert(isSuccess, "*** 批量更新赛区数据失败")
         }
         
-    
+        // 删除数据，使用id
+        remove(zoneID: rows[0].id) { (isSuccess) in
+            XCTAssert(isSuccess, "*** 删除有效赛区数据失败")
+        }
         
+        // 删除数据，使用名称
+        remove(zoneName: "亚洲") { (isSuccess) in
+            XCTAssert(isSuccess, "*** 删除有效赛区数据失败")
+        }
     }
 }
