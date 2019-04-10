@@ -13,7 +13,7 @@ final class StarCraftMatchCoreTests: XCTestCase {
         ("testExample", testExample), ("testTeamDB", testTeamDB)
     ]
     
-    func testTeamDB() {
+    func testZoneDB() {
         configDatabase()
         
         deleteAllTeamRecords()
@@ -47,6 +47,19 @@ final class StarCraftMatchCoreTests: XCTestCase {
         // 删除数据，使用名称
         remove(zoneName: "亚洲") { (isSuccess) in
             XCTAssert(isSuccess, "*** 删除有效赛区数据失败")
+        }
+    }
+    
+    func testTeamDB() {
+        configDatabase()
+        
+        deleteAllTeamRecords()
+        deleteAllZoneRecords()
+        deleteAllTeamZoneRecords()
+        
+        let teams = [("熊猫战队", "A"), ("北京战队", "B"), ("昆明战队", "C"), ("斗鱼战队", "D")]
+        save(teamPack: teams) { (isSuccess) in
+            XCTAssert(isSuccess, "*** 批量插入或更新战队数据失败")
         }
     }
 }
