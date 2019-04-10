@@ -16,7 +16,7 @@ public class Zone: SQLiteStORM {
     /// 赛区名
     var name: String = ""
     /// 删除标记
-    var state: Bool = true
+    var activeState: Int = 0
     
     override open func table() -> String {
         return "zone"
@@ -25,7 +25,7 @@ public class Zone: SQLiteStORM {
     override public func to(_ this: StORMRow) {
         id = this.data["id"] as? Int ?? 0
         name = this.data["name"] as? String ?? ""
-        state = this.data["state"] as? Bool ?? false
+        activeState = this.data["activeState"] as? Int ?? 0
     }
     
     func rows() -> [Zone] {
@@ -47,7 +47,7 @@ public class Team: SQLiteStORM {
     /// 负责人（默认经理）
     var mananger: String = ""
     /// 删除标记
-    var state: Bool = true
+    var activeState: Int = 0
     
     override open func table() -> String {
         return "team"
@@ -57,7 +57,7 @@ public class Team: SQLiteStORM {
         id = this.data["id"] as? Int ?? 0
         name = this.data["name"] as? String ?? ""
         mananger = this.data["mananger"] as? String ?? ""
-        state = this.data["state"] as? Bool ?? false
+        activeState = this.data["activeState"] as? Int ?? 0
     }
     
     func rows() -> [Team] {
@@ -77,7 +77,7 @@ public class TeamInZone: SQLiteStORM {
     var teamid: Int = 0
     var zoneid: Int = 0
     /// 删除标记
-    var state: Bool = true
+    var activeState: Int = 0
     
     override open func table() -> String {
         return "team_relate_zone"
@@ -87,7 +87,7 @@ public class TeamInZone: SQLiteStORM {
         id = this.data["id"] as? Int ?? 0
         teamid = this.data["deviceid"] as? Int ?? 0
         zoneid = this.data["userid"] as? Int ?? 0
-        state = this.data["state"] as? Bool ?? false
+        activeState = this.data["activeState"] as? Int ?? 0
     }
     
     func rows() -> [TeamInZone] {
@@ -106,7 +106,7 @@ public class TeamInZone: SQLiteStORM {
     /// - Returns: 赛区+战队列表，若没有有效战队信息则返回nil
     func request(teamInZone zone: Int) -> (Zone, [Team])? {
         do {
-            try self.find([("zoneid", zone), ("state", true)])
+            try self.find([("zoneid", zone), ("activeState", 1)])
             let zone = Zone()
             try zone.get(zoneid)
             var teams = [Team]()
